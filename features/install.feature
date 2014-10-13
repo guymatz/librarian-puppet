@@ -65,7 +65,7 @@ Feature: cli/install
       And a directory named "modules/test" should exist
       And the file "modules/test" should not have the same inode or ctime as before
 
-    @focus
+    @focus @announce
     Scenario: Install a module with the rsync configuration using the --destructive flag
       Given a file named "Puppetfile" with:
       """
@@ -81,11 +81,12 @@ Feature: cli/install
       When I run `librarian-puppet config`
       Then the exit status should be 0
       And the output should contain "rsync: true"
-      When I run `librarian-puppet install`
+      When I run `librarian-puppet install --verbose`
       Then the exit status should be 0
       And a directory named "modules/test" should exist
       And the file "modules/test" should have an inode and ctime
-      When I run `librarian-puppet install --destructive`
+      Given I wait for 1 second
+      When I run `librarian-puppet install --destructive --verbose`
       Then the exit status should be 0
       And a directory named "modules/test" should exist
       And the file "modules/test" should not have the same inode or ctime as before

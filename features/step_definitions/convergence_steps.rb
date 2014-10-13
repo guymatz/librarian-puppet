@@ -18,6 +18,7 @@ end
 Then /^the file "([^"]*)" should not have the same inode or ctime as before$/ do |file|
     prep_for_fs_check do
         stat = File.stat(File.expand_path(file))
+        puts File.expand_path(file)
         puts "Inode #{@before_inode['ino']} => #{stat.ino}"
         puts "ctime #{@before_inode['ctime']} => #{stat.ctime}"
 
