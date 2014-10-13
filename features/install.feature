@@ -65,6 +65,7 @@ Feature: cli/install
       And a directory named "modules/test" should exist
       And the file "modules/test" should not have the same inode or ctime as before
 
+    @focus
     Scenario: Install a module with the rsync configuration using the --destructive flag
       Given a file named "Puppetfile" with:
       """
